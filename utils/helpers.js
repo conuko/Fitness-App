@@ -1,10 +1,9 @@
-/* eslint-disable prettier/prettier */
 import React from 'react';
-import { View } from 'react-native';
+import {View} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { white } from './colors';
+import {white} from './colors';
 
 export function isBetween(num, x, y) {
   if (num >= x && num <= y) {
