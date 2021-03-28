@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import { View } from 'react-native';
-import { FontAwesome } from 'react-native-vector-icons/FontAwesome';
-import { MaterialIcons } from 'react-native-vector-icons/MaterialIcons';
-import { MaterialCommunityIcons } from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { white } from './colors';
 
 export function isBetween(num, x, y) {
@@ -75,7 +75,7 @@ export function getMetricMetaInfo(metric) {
       getIcon() {
         return (
           <View>
-            <MaterialCommunityIcons name="bike" color={'black'} size={35} />
+            <MaterialCommunityIcons name="bike" color={'black'} size={32} />
           </View>
         );
       },
