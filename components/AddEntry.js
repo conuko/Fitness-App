@@ -1,12 +1,18 @@
 import React, {useState} from 'react';
 import {TouchableOpacity, View, Text} from 'react-native';
-import {getMetricMetaInfo, timeToString} from '../utils/helpers';
+import {
+  getMetricMetaInfo,
+  timeToString,
+  getDailyReminderValue,
+} from '../utils/helpers';
 import UdaciSlider from './UdaciSlider';
 import UdaciSteppers from './UdaciSteppers';
 import DateHeader from './DateHeader';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import TextButton from './TextButton';
 import {submitEntry, removeEntry} from '../utils/api';
+import {useDispatch, useSelector} from 'react-redux';
+import {addEntry} from '../actions';
 
 function SubmitBtn({onPress}) {
   return (
@@ -17,6 +23,8 @@ function SubmitBtn({onPress}) {
 }
 
 export default function AddEntry() {
+  const dispatch = useDispatch();
+
   const [state, setState] = useState({
     run: 0,
     bike: 0,
@@ -53,8 +61,14 @@ export default function AddEntry() {
     const key = timeToString();
     const entry = state;
 
-    // Update Redux
+    // Update Redux:
+    dispatch(
+      addEntry({
+        [key]: entry,
+      }),
+    );
 
+    // setState back to 0:
     setState({
       run: 0,
       bike: 0,
@@ -74,7 +88,12 @@ export default function AddEntry() {
   const reset = () => {
     const key = timeToString();
 
-    // Update Redux
+    // Update Redux:
+    dispatch(
+      addEntry({
+        [key]: getDailyReminderValue(),
+      }),
+    );
 
     // Route to Home
 
@@ -124,4 +143,12 @@ export default function AddEntry() {
       <SubmitBtn onPress={submit} />
     </View>
   );
+}
+
+function mapStateToProps (state) {
+  const key = timeToString()
+
+  return {
+    alreadyLogged: state[key] && typeof state[key].today === 'undefined'
+  }
 }
