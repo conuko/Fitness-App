@@ -23,8 +23,6 @@ function SubmitBtn({onPress}) {
 }
 
 export default function AddEntry() {
-  const dispatch = useDispatch();
-
   const [state, setState] = useState({
     run: 0,
     bike: 0,
@@ -32,6 +30,12 @@ export default function AddEntry() {
     sleep: 0,
     eat: 0,
   });
+
+  const dispatch = useDispatch();
+  const key = timeToString();
+  const alreadyLogged = useSelector(
+    state => state[key] && typeof state[key].today === 'undefined',
+  );
 
   const increment = metric => {
     const {max, step} = getMetricMetaInfo(metric);
@@ -103,7 +107,7 @@ export default function AddEntry() {
 
   const metaInfo = getMetricMetaInfo();
 
-  if (props.alreadyLogged) {
+  if (alreadyLogged) {
     return (
       <View>
         <Ionicons name="md-happy-outline" size={100} />
@@ -143,12 +147,4 @@ export default function AddEntry() {
       <SubmitBtn onPress={submit} />
     </View>
   );
-}
-
-function mapStateToProps (state) {
-  const key = timeToString()
-
-  return {
-    alreadyLogged: state[key] && typeof state[key].today === 'undefined'
-  }
 }
