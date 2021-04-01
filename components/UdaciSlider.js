@@ -5,11 +5,12 @@ import Slider from '@react-native-community/slider';
 export default function UdaciSlider({max, unit, step, value, onChange}) {
   return (
     <View>
-      <Slider 
+      <Slider
         styp={step}
         value={value}
         maximumValue={max}
         onValueChange={onChange}
+        step={1}
       />
       <View>
         <Text>{value}</Text>
