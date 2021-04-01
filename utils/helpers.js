@@ -3,7 +3,7 @@ import {View, StyleSheet} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {white, red, orange, blue, lightPurp, pink} from './colors';
+import {red, orange, blue, lightPurp, pink} from './colors';
 
 export function isBetween(num, x, y) {
   if (num >= x && num <= y) {

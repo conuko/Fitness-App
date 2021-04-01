@@ -1,5 +1,7 @@
+/* eslint-disable no-shadow */
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {TouchableOpacity, View, Text} from 'react-native';
+import {TouchableOpacity, View, Text, Platform, StyleSheet} from 'react-native';
 import {
   getMetricMetaInfo,
   timeToString,
@@ -13,11 +15,16 @@ import TextButton from './TextButton';
 import {submitEntry, removeEntry} from '../utils/api';
 import {useDispatch, useSelector} from 'react-redux';
 import {addEntry} from '../actions';
+import {purple, white} from '../utils/colors';
 
 function SubmitBtn({onPress}) {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <Text>Submit</Text>
+    <TouchableOpacity
+      style={
+        Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn
+      }
+      onPress={onPress}>
+      <Text style={styles.submitBtnText}>SUBMIT</Text>
     </TouchableOpacity>
   );
 }
@@ -109,23 +116,30 @@ export default function AddEntry() {
 
   if (alreadyLogged) {
     return (
-      <View>
-        <Ionicons name="md-happy-outline" size={100} />
+      <View style={styles.center}>
+        <Ionicons
+          name={
+            Platform.OS === 'ios' ? 'ios-happy-outline' : 'md-happy-outline'
+          }
+          size={100}
+        />
         <Text>You already logged your information for today</Text>
-        <TextButton onPress={reset}>Reset</TextButton>
+        <TextButton style={{padding: 10}} onPress={reset}>
+          Reset
+        </TextButton>
       </View>
     );
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <DateHeader date={new Date().toLocaleDateString()} />
       {Object.keys(metaInfo).map(key => {
         const {getIcon, type, ...rest} = metaInfo[key];
         const value = state[key];
 
         return (
-          <View key={key}>
+          <View key={key} style={styles.row}>
             {getIcon()}
             {type === 'slider' ? (
               <UdaciSlider
@@ -148,3 +162,44 @@ export default function AddEntry() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: white,
+  },
+  row: {
+    flexDirection: 'row',
+    flex: 1,
+    alignItems: 'center',
+  },
+  iosSubmitBtn: {
+    backgroundColor: purple,
+    padding: 10,
+    borderRadius: 7,
+    height: 45,
+    marginLeft: 40,
+    marginRight: 40,
+  },
+  androidSubmitBtn: {
+    backgroundColor: purple,
+    padding: 10,
+    height: 45,
+    borderRadius: 7,
+    marginLeft: 40,
+    marginRight: 40,
+  },
+  submitBtnText: {
+    color: white,
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  center: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 30,
+    marginLeft: 30,
+  },
+});
