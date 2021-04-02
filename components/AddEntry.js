@@ -41,7 +41,7 @@ export default function AddEntry() {
   const dispatch = useDispatch();
   const key = timeToString();
   const alreadyLogged = useSelector(
-    state => state[key] && typeof state[key].today === 'undefined',
+    state => state[key] && typeof state[key][0] === 'undefined',
   );
 
   const increment = metric => {
@@ -70,7 +70,7 @@ export default function AddEntry() {
 
   const submit = () => {
     const key = timeToString();
-    const entry = state;
+    const entry = [state];
 
     // Update Redux:
     dispatch(
