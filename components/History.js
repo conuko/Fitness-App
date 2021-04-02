@@ -7,6 +7,7 @@ import {fetchCalendarResults} from '../utils/api';
 import {Agenda} from 'react-native-calendars';
 import {white} from '../utils/colors';
 import DateHeader from './DateHeader';
+import MetricCard from './MetricCard';
 
 export default function History(props) {
   const [state, setState] = useState({
@@ -43,7 +44,7 @@ export default function History(props) {
         </View>
       ) : (
         <TouchableOpacity onPress={() => console.log('Pressed!')}>
-          <Text>{JSON.stringify(metrics)}</Text>
+          <MetricCard metrics={metrics} date={formattedDate}/>
         </TouchableOpacity>
       )}
     </View>
