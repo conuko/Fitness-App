@@ -1,10 +1,12 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Platform, TouchableOpacity} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {receiveEntries, addEntry} from '../actions';
 import {timeToString, getDailyReminderValue} from '../utils/helpers';
 import {fetchCalendarResults} from '../utils/api';
-import {Agenda} from 'react-native-calendars';
+//import {Agenda} from 'react-native-calendars';
+import UdaciFitnessCalendar from 'udacifitness-calendar';
 import {white} from '../utils/colors';
 import DateHeader from './DateHeader';
 import MetricCard from './MetricCard';
@@ -44,7 +46,7 @@ export default function History(props) {
         </View>
       ) : (
         <TouchableOpacity onPress={() => console.log('Pressed!')}>
-          <MetricCard metrics={metrics} date={formattedDate}/>
+          <MetricCard metrics={metrics} date={formattedDate} />
         </TouchableOpacity>
       )}
     </View>
@@ -62,7 +64,8 @@ export default function History(props) {
   };
 
   return (
-    <Agenda
+    <UdaciFitnessCalendar
+      style={{flex: 1}}
       items={entries}
       renderItem={renderItem}
       renderEmptyDate={renderEmptyDate}
