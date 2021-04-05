@@ -28,7 +28,7 @@ function setDummyData() {
               eat: getRandomNumber(eat.max),
             },
           ]
-        : [];
+        : new Array();
   }
 
   AsyncStorage.setItem(CALENDAR_STORAGE_KEY, JSON.stringify(dummyData));
@@ -45,7 +45,7 @@ function setMissingDates(dates) {
     const strTime = timeToString(time);
 
     if (typeof dates[strTime] === 'undefined') {
-      dates[strTime] = [];
+      dates[strTime] = new Array();
     }
   }
 

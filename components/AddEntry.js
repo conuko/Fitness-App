@@ -9,7 +9,6 @@ import {
 } from '../utils/helpers';
 import UdaciSlider from './UdaciSlider';
 import UdaciSteppers from './UdaciSteppers';
-import DateHeader from './DateHeader';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import TextButton from './TextButton';
 import {submitEntry, removeEntry} from '../utils/api';
@@ -133,7 +132,6 @@ export default function AddEntry() {
 
   return (
     <View style={styles.container}>
-      <DateHeader date={new Date().toLocaleDateString()} />
       {Object.keys(metaInfo).map(key => {
         const {getIcon, type, ...rest} = metaInfo[key];
         const value = state[key];
